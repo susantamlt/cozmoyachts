@@ -1,44 +1,41 @@
 		    <section class="content">
-            <input type="hidden" name="page" id="page" value="deals" />
+            <input type="hidden" name="page" id="page" value="todo" />
             <div class="container-fluid">
             	<div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="card">
-                            <div class="header" style="border-bottom:none;">
-                              <h2 class="col-md-6" style="padding:0px;">Deals List</h2>
+                           <div class="header" style="border-bottom:none;">
+                              <h2 class="col-md-6" style="padding:0px;">Todos List</h2>
                               <div class="col-md-6" style="padding:0px; text-align:right;">
                                 <a href="javascript:void(0)" onclick="location.reload();" data-toggle="tooltip" class="btn btn-primary btn-background" title="Reload Page"><i class="glyphicon glyphicon-refresh"></i></a>
-                                <a href="<?php echo site_url('admin/deals/deal_add') ?>" data-toggle="tooltip" title="Add New Record" class="btn btn-success btn-background"><i class="glyphicon glyphicon-plus"></i></a>
+                                <a href="<?php echo site_url('admin/todos/todos_add') ?>" data-toggle="tooltip" title="Add New Record" class="btn btn-success btn-background"><i class="glyphicon glyphicon-plus"></i></a>
                               </div>
-                            </div>
+                            </div><?php
+                            $this->session->keep_flashdata('message');?>
                             <div class="body">
-                            <div class="table-responsive">
-                              <table id="dataManual" class="table table-bordered table-striped" style="width:100%;">
-          											<thead>
-          												<tr>
-          													<th style="width:18px" class="sorting-disabled">
-          														<input type="checkbox" id="checkbox-1-0" class="regular-checkbox" />
-          														<label for="checkbox-1-0"></label>
-          													</th>
-                                    <th title="Package Name"> Package Name </th>
-                                    <th title="Website Name"> Website Name </th>
-                                    <th title="Price"> Price </th>
-                                    <th title="No of Pax"> No of Pax </th>
-                                    <th title="Yacht Size"> Yacht Size </th>
-                                    <th title="Cabins"> Cabins </th>
-                                    <th title="Package Status"> Package Status </th>
-                                    <th title="Created Date"> Created Date </th>
-                                    <th title="Action"> Action </th>
-          												</tr>
-          											</thead>
-          											<tbody>
-          												<tr>
-          													<td colspan="10" class="text-center">
-          													<img src="<?php echo config_item('assets_dir');?>images/small-loader.gif">
-          													</td>
-          												</tr>
-          											</tbody>
-          										</table>
+                              <div class="table-responsive">
+                                <table id="dataManual" class="table table-bordered table-striped table-hover dataTable js-exportable" style="width:100%;">
+                                  <thead>
+                                    <tr>
+                                      <th style="width:18px" class="sorting-disabled">
+                                        <input type="checkbox" id="checkbox-1-0" class="regular-checkbox" />
+                                        <label for="checkbox-1-0"></label>
+                                      </th>
+                                      <th title="Message"> Message </th>
+                                      <th title="Notification Date"> Notification Date </th>
+                                      <th title="Create Date"> Create Date </th>
+                                      <th title="Status">Status</th>
+                                      <th title="Action"> Action </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td colspan="11" class="text-center">
+                                        <img src="<?php echo config_item('assets_dir'); ?>images/small-loader.gif">
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
                               </div>
                             </div>
                         </div>
@@ -60,7 +57,7 @@
           $(function () {
             $('#dataManual').DataTable({
               "bServerSide": true,
-              "sAjaxSource": "<?php echo site_url('admin/deals/deals_list'); ?>",
+              "sAjaxSource": "<?php echo site_url('admin/todos/todos_list'); ?>",
               "sServerMethod": "POST",
               "sPaginationType": "full_numbers",
               "aoColumns": [
@@ -91,7 +88,7 @@
                   }
                 },
                 {
-                  "sName": "E-mail",
+                  "sName": "Moile",
                   "sClass": "text-center",
                   "bSearchable": false,
                   "bSortable": true,
@@ -108,43 +105,7 @@
                     return oObj;
                   }
                 },
-                {
-                  "sName": "Image",
-                  "sClass": "text-center",
-                  "bSearchable": false,
-                  "bSortable": true,
-                  "fnRender": function (oObj) {
-                    return oObj;
-                  }
-                },
-                {
-                  "sName": "Type",
-                  "sClass": "text-center",
-                  "bSearchable": false,
-                  "bSortable": true,
-                  "fnRender": function (oObj) {
-                    return oObj;
-                  }
-                },
-                {
-                  "sName": "Gender",
-                  "sClass": "text-center",
-                  "bSearchable": false,
-                  "bSortable": true,
-                  "fnRender": function (oObj) {
-                    return oObj;
-                  }
-                },
-                {
-                  "sName": "Country",
-                  "sClass": "text-center",
-                  "bSearchable": false,
-                  "bSortable": true,
-                  "fnRender": function (oObj) {
-                    return oObj;
-                  }
-                },
-                {
+               {
                   "sName": "Action",
                   "sClass": "text-center",
                   "bSearchable": false,
@@ -164,7 +125,8 @@
                 { extend: 'print', className: 'printButton', titleAttr: 'Export to Print' }
               ],
               "iDisplayLength": 25,
-              "aLengthMenu": [[25, 50, 100, 500, -1], [25, 50, 100, 500, "All"]]
+              "aLengthMenu": [[10,25, 50, 100, 500, -1], [10,25, 50, 100, 500, "All"]],
+              'aaSorting':[[2,'desc']]
             });
           });
         </script>

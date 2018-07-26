@@ -104,24 +104,32 @@
                         },
 						package_name: {
 							required: true,	
-                            regex:/^[a-zA-Z0-9 ]*$/,					
-						},
-						fb:{
-							required: true,
+                            regex:/^[a-zA-Z0-9 ]*$/,						
 						},
 						yacht_details: {
 							required: true,
 						},
-						insta: {
-							required: true,
-						},
 						price: {
 							required: true,
-							regex:/^\d+\.\d{0,2}$/,
+							regex:/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/,
 						},
 						yacht_hour_fixed: {
-							required: true,
+							required:  true,
 						},
+						no_pax: {
+							required: true,
+							regex:/^[0-9]*$/,
+                        },
+                        yacht_size: {
+							required: true,
+							regex:/^[0-9]\d{0,9}(\.\d{1,3})?%?$/,
+                        },
+                        cabins: {
+							required: true,
+                        },
+                       pak_status: {
+							required: true,
+                        }, 
 					},
 					messages: {
 						web_id: {
@@ -144,6 +152,20 @@
 						yacht_hour_fixed: {
 							required:  "Please Selet yacht hour or fixed ",
 						},
+						pak_status: {
+							required: "Please select package status",
+                        },
+                        no_pax: {
+							required:  "Please enter no of Pax",
+							regex: "Only integer is accepted"
+                        },
+                        yacht_size: {
+							required:  "Please enter size",
+							regex: "Only integer and two decimal point number is accepted"
+						},
+						cabins: {
+							required: "Please enter cabins",
+                        },
                       },
 					onfocusout: function(element) {
 						this.element(element);
@@ -177,14 +199,14 @@
 								if(resD.status=='1'){
 									var html = '<div class="alert alert-success fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>Success!</strong> '+resD.msg+'.</div>';
 									$('#massage').html(html);
-									$("html, body").animate({ scrollTop: 0 }, "fast");
+									$("html, body").animate({ scrollTop: 0 }, "slow");
 									window.setTimeout(function () {
 										location.href = "<?php echo site_url('admin/yachts') ?>";
 									}, 5000);
 								} else { 
 									var html = '<div class="alert alert-warning fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>Warning!</strong> '+resD.msg+'.</div>';
 									$('#massage').html(html);
-									$("html, body").animate({ scrollTop: 0 }, "fast");
+									$("html, body").animate({ scrollTop: 0 }, "slow");
 								}
 							}
 						});

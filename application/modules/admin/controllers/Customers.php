@@ -35,13 +35,11 @@ class Customers extends MX_Controller
 			if($row[5]!=''){
 				$row[5]= ucwords($row[5]);
 			}
+			
 			if($row[6]!=''){
 				$row[6]= date('jS M Y', strtotime($row[6]));
 			}
-			if($row[7]!=''){
-				$row[7]= date('jS M Y', strtotime($row[7]));
-			}
-			$row[8] = '<a href="'.base_url('admin/customers/customer_view/').$row[0].'" title="View Record" data-toggle="tooltip"><i class="glyphicon glyphicon-eye-open" ></i></a>&nbsp;&nbsp;<a href="'.base_url('admin/customers/customer_edit/').$row[0].'" title="Edit Record" data-toggle="tooltip"><i class="glyphicon glyphicon-edit" ></i></a>';
+			$row[7] = '<a href="'.base_url('admin/customers/customer_view/').$row[0].'" title="View Record" data-toggle="tooltip"><i class="glyphicon glyphicon-eye-open" ></i></a>&nbsp;&nbsp;<a href="'.base_url('admin/customers/customer_edit/').$row[0].'" title="Edit Record" data-toggle="tooltip"><i class="glyphicon glyphicon-edit" ></i></a>';
 			$row[0] = '<input type="checkbox" id="checkbox-1-' . intval($row[0]) . '" class="checkbox1 regular-checkbox" name="regular-checkbox" value="' . $row[0] . '"/><label for="checkbox-1-' . intval($row[0]) . '"></label>';
 			$aaData[] = $row;
 		}
@@ -111,8 +109,8 @@ class Customers extends MX_Controller
 		fclose($handle);
 		$header = $csv[0];
 		unset($csv[0]);
-		if(!empty($csv)){	
-		 $msg = '';		
+		$msg = '';
+		if(!empty($csv)){
 			foreach ($csv as $kCsv => $VCsv) {
 				$vhbds = $this->validationMethod($VCsv);
 				if ($vhbds['status']==0){

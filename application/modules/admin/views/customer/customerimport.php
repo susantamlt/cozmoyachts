@@ -7,6 +7,7 @@
 						<div class="card">
 							<div class="header">
 								<h2>Import Customers</h2>
+								<div id="massage"></div>
 							</div>
 							<div class="body">
 								<?php echo form_open_multipart('admin/customers/customersimport_save', array('id' =>'customers_form','name'=>'customers_form','class'=>'form-horizontal','enctype'=>'multipart/form-data','method'=>'POST')); ?>
@@ -86,12 +87,26 @@
 							success: function(res) {
 								var resD = $.parseJSON(res);
 								if(resD.status=='1'){
-									window.setTimeout(function () {
-                                        location.href = "<?php echo site_url('admin/customers') ?>";
-                                    }, 5000);
-								} else { 
-									$('.error_msg').show();
-									$('.error_msg').html(resD.message);
+									var html='';
+									if(resD.scount > 0){
+										html += '<div class="alert alert-success fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>successful!</strong> data save '+resD.scount+'/'+resD.tcount+'</div>';
+									}
+									if(resD.fcount > 0){
+										html += '<div class="alert alert-danger fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>failure!</strong> data not save '+resD.fcount+'/'+resD.tcount+'</div>';
+									}
+									if(resD.msg != ''){
+										var nmsg = resD.msg;
+										//var msg = nmsg.replace('"\"', '"');
+										html += '<div class="alert alert-danger fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>'+nmsg+'</div>';
+									}
+
+										$('#massage').html(html);
+										window.setTimeout(function () {
+	                                        location.href = "<?php echo site_url('admin/customers') ?>";
+	                                    }, 5000);
+                                } else { 
+                                   	var html = '<div class="alert alert-danger fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>Warning!</strong> the value already exists</div>';
+									$('#massage').html(html);
 								}
 							}
 						});

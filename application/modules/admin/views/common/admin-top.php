@@ -68,10 +68,10 @@
                 <div class="collapse navbar-collapse" id="navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Notifications -->
-                        <li class="dropdown">
+                        <li id="notifications" class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
                                 <i class="material-icons">notifications</i>
-                                <span class="label-count">7</span>
+                                <span class="label-count">0</span>
                             </a>
                         </li>
                         <!-- #END# Notifications -->
@@ -121,6 +121,7 @@
                         <li id="deals" class="ourmenu"><a href="<?php echo base_url('admin/deals'); ?>"><i class="material-icons">assignment</i><span>Deals</span></a></li>
                         <li id="bookings" class="ourmenu"><a href="<?php echo base_url('admin/bookings'); ?>"><i class="material-icons">library_books</i><span>Bookings</span></a></li>
                         <li id="payments" class="ourmenu"><a href="<?php echo base_url('admin/payments'); ?>"><i class="material-icons">payment</i><span>Payments</span></a></li>
+						<li id="todo" class="ourmenu"><a href="<?php echo base_url('admin/todos'); ?>"><i class="material-icons">assignment</i><span>Todo List</span></a></li>
                     </ul>
                 </div>
                 <!-- #Menu -->

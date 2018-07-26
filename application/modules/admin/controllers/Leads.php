@@ -36,16 +36,7 @@ class Leads extends MX_Controller
 			if($row[6]!=''){
 				$row[6]= date('jS M Y', strtotime($row[6]));
 			}
-			if($row[7]!=''){
-				$row[7]= date('H:i A', strtotime($row[7]));
-			}
-			if($row[8]!=''){
-				$row[8]= $row[8].' PAK';
-			}
-			if($row[9]!=''){
-				$row[9]= date('jS M Y', strtotime($row[9]));
-			}
-			$row[10] = '<a href="'.base_url('admin/leads/leads_view/').$row[0].'" title="View Record" data-toggle="tooltip"><i class="glyphicon glyphicon-eye-open" ></i></a>&nbsp;&nbsp;<a href="'.base_url('admin/leads/leads_edit/').$row[0].'" title="Edit Record" data-toggle="tooltip"><i class="glyphicon glyphicon-edit" ></i></a>';
+			$row[7] = '<a href="'.base_url('admin/leads/leads_view/').$row[0].'" title="View Record" data-toggle="tooltip"><i class="glyphicon glyphicon-eye-open" ></i></a>&nbsp;&nbsp;<a href="'.base_url('admin/leads/leads_edit/').$row[0].'" title="Edit Record" data-toggle="tooltip"><i class="glyphicon glyphicon-edit" ></i></a>';
 			$row[0] = '<input type="checkbox" id="checkbox-1-' . intval($row[0]) . '" class="checkbox1 regular-checkbox" name="regular-checkbox" value="' . $row[0] . '"/><label for="checkbox-1-' . intval($row[0]) . '"></label>';
 			$aaData[] = $row;
 		}
@@ -181,13 +172,13 @@ class Leads extends MX_Controller
 			$_dataR = $this->leads_model->leads_save($data);
 			if($_dataR==2){
 				$_data['status'] = 0;
-				$_data['msg'] = 'Already exits';
+				$_data['msg'] = ' The data already exits';
 			} else if($_dataR==1){
 				$_data['status'] = 1;
-				$_data['msg'] = 'Successfully';
+				$_data['msg'] = 'The data successfully insert';
 			} else if($_dataR==3){
 				$_data['status'] = 1;
-				$_data['msg'] = 'Update Successfully';
+				$_data['msg'] = 'The data update Successfully';
 			} else {
 				$_data['status'] = 0;
 				$_data['msg'] = 'Faillure';

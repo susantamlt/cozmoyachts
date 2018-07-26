@@ -46,10 +46,10 @@
 											<label id="country_code-error" class="error" for="country_code"></label>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group demo-masked-input">
 										<label class="col-md-2"> Birthday:<span class="mandatory">*</span></label>
 										<div class="col-md-4">
-											<input type="date" name="birthdate" id="birthdate" class="form-control" value="" placeholder="Birthday" autocomplete="off" />
+											<input type="text" name="birthdate" id="birthdate" class="form-control date" value="" placeholder="Birthday" autocomplete="off" />
 											<label id="birthdate-error" class="error" for="birthdate"></label>
 										</div>
 										<label class="col-md-2"> Image </label>
@@ -131,7 +131,7 @@
 							required: true,
 						},
 						image: {
-							extension: "jpeg|jpg|png|gif",
+							extension: "jpeg/jpg/png/gif",
 						},
 						country_code:{
 							required: true,
@@ -140,7 +140,7 @@
 					messages: {
 						user_name: {
 							required: "Please enter name",
-						},
+						},						
 						phone: {
 							required: "Please enter a phone number.",
 							number: "Please enter a valid phone number.",
@@ -175,7 +175,7 @@
 							required: "Please select website",
 						},
 						image: {
-							extension: "Those file are allowed. Ex: jpeg,jpg,png,gif"
+							extension: "Those file are allowed. Ex: jpeg/jpg/png|gif"
 						},
 						type: {
 							required: "Please select user type",							
@@ -201,7 +201,7 @@
 						formData.append('country_code', $('#country_code').val());
 						formData.append('birthdate', $('#birthdate').val());
 						formData.append('type', $('#type').val());
-						formData.append('user_id', '');
+						formData.append('user_id', $('#user_id').val());
 						formData.append('web_id', $('#web_id').val());
 						$.ajax({
 							url: form.action,
@@ -215,16 +215,14 @@
 							success: function(res) {
 								var resD = $.parseJSON(res);
 								if(resD.status=='1'){
-									var html = '<div class="alert alert-success fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>Success!</strong> '+resD.msg+'.</div>';
-									$('#massage').html(html);
-									$("html, body").animate({ scrollTop: 0 }, "fast");
 									window.setTimeout(function () {
+										var html = '<div class="alert alert-success fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>Success!</strong> The value successfully insert.</div>';
+									$('#massage').html(html);
 										location.href = "<?php echo site_url('admin/customers') ?>";
 									}, 5000);
 								} else { 
-									var html = '<div class="alert alert-warning fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>Warning!</strong> '+resD.msg+'.</div>';
+									var html = '<div class="alert alert-warning fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>Warning!</strong> This value already exists in the list.</div>';
 									$('#massage').html(html);
-									$("html, body").animate({ scrollTop: 0 }, "fast");
 								}
 							}
 						});
@@ -261,3 +259,12 @@
 				}
 			});
 			</script>
+			 <!-- Input Mask Plugin Js -->
+        <script src="<?php echo config_item('assets_dir');?>plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+        <script type="text/javascript">
+            var $demoMaskedInput = $('.demo-masked-input');
+            //Date
+            $demoMaskedInput.find('.date').inputmask('mm/dd/yyyy', { placeholder: '__/__/____' });
+            //Time
+            $demoMaskedInput.find('.time12').inputmask('hh:mm t', { placeholder: '__:_ m', alias: 'time12', hourFormat: '12' });
+        </script>

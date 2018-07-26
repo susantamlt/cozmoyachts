@@ -15,7 +15,6 @@
 			"$tableName.phone",
 			"$tableName1.web_name",
 			"$tableName2.country_name",
-			"$tableName.last_login",
 			"$tableName.created_at",
 		);
 		$indexId     = '$tableName.user_id';
@@ -50,6 +49,7 @@
 		$this->db->where('email',$date['email']);
 		$this->db->where('phone',$date['phone']);
 		$datas = $this->db->get()->result_array();
+
 		if(empty($datas) || (isset($date['user_id']) && $datas[0]['user_id']==$date['user_id'])){
 			$date['birthdate']= date('Y-m-d',strtotime($date['birthdate']));
 			if(isset($date['password']) && $date['password']!=''){

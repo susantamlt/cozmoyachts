@@ -231,14 +231,15 @@ class Bookings extends MX_Controller
 			$data['delivery_cust_city']=$billing_data['shipping_city'];
 			$data['delivery_zip_code']=$billing_data['shipping_postal'];
 
-			$data['Merchant_Id'] = '44675';
-			$data['WorkingKey'] = 'D2E31D2311D4EE361F3328CF84F21244';
+			$data['Merchant_Id'] = 'M_mprusty_11000';
+			$data['WorkingKey'] = 'nljjre6fcsomr7485j';
 			$stamp = strtotime("now").$this->input->ip_address();
 			$data['Order_Id'] = $billing_data['booking_id'];
-			$data['Amount'] = ($billing_data['p_amount'] > 0 ? $billing_data['p_amount'] : $billing_data['totalamount']);
+			//$data['Amount'] = ($billing_data['p_amount'] > 0 ? $billing_data['p_amount'] : $billing_data['totalamount']);
+			$data['Amount'] = 420;
 			$data['Redirect_Url']="'".base_url('admin/bookings/confirm')."'";
 			$data['Checksum']=$this->ccavenue->getCheckSum($data['Merchant_Id'],$data['Amount'],$data['Order_Id'] ,$data['Redirect_Url'],$data['WorkingKey']);
-			//redirect('admin/bookings/confirm');
+			redirect('admin/bookings/confirm');
 			$this->load->view('booking/ccavenueBooking',$data);
 		} else {
 			redirect('admin/bookings');

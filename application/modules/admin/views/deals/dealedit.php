@@ -11,19 +11,19 @@
 							<div class="body">
 								<?php echo form_open_multipart('admin/deals/deals_save', array('id' =>'packages_form','name'=>'packages_form','class'=>'form-horizontal','enctype'=>'multipart/form-data','method'=>'POST')); ?>
 									<div class="form-group">
-										<label class="col-md-2"> Website name </label>
+										<label class="col-md-2"> Website name: <span class="mandatory">*</span> </label>
 										<div class="col-md-4">
                                        <?php echo form_dropdown('web_id',$ljp_website,$ljp_Data[0]['web_id'],'class="form-control" id="web_id"') ?>
 											<label id="web_id-error" class="error" for="web_id"></label>
 										</div>
-										<label class="col-md-2"> Yacht Name: </label>
+										<label class="col-md-2"> Deal Name: <span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<input type="text" name="package_name" id="package_name" class="form-control" value="<?php echo $ljp_Data[0]['package_name']; ?>" placeholder="Package name" />
 											<label id="package_name-error" class="error" for="package_name"></label>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-2"> Status: </label>
+										<label class="col-md-2"> Status:<span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<select name="pak_status" id="pak_status" class="form-control">
 												<option value="" <?php if($ljp_Data[0]['pak_status']==''){ echo 'selected="selected"'; } ?>>--Select One--</option>
@@ -32,31 +32,31 @@
 											</select> 
 											<label id="pak_status-error" class="error" for="pak_status"></label>
 										</div>
-										<label class="col-md-2"> Price: </label>
+										<label class="col-md-2"> Price: <span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<input type="text" name="price" id="price" class="form-control" value="<?php echo $ljp_Data[0]['price']; ?>" placeholder="price" />
 											<label id="price-error" class="error" for="price"></label>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-2"> No of Pax: </label>
+										<label class="col-md-2"> No of Pax: <span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<input type="text" name="no_pax" id="no_pax" class="form-control" value="<?php echo $ljp_Data[0]['no_pax']; ?>" placeholder="No of Pax" />
 											<label id="no_pax-error" class="error" for="no_pax"></label>
 										</div>
-										<label class="col-md-2"> Yacht Size: </label>
+										<label class="col-md-2"> Yacht Size: <span class="mandatory">*</span></label>
 										<div class="col-md-4">
 											<input type="text" name="yacht_size" id="yacht_size" class="form-control" value="<?php echo $ljp_Data[0]['yacht_size']; ?>" placeholder="Yacht Size" />
 											<label id="yacht_size-error" class="error" for="yacht_size"></label>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-2"> Cabins: </label>
+										<label class="col-md-2"> Cabins: <span class="mandatory">*</span></label>
 										<div class="col-md-4">
 											<input type="text" name="cabins" id="cabins" class="form-control" value="<?php echo $ljp_Data[0]['cabins']; ?>" placeholder="Cabins" />
 											<label id="cabins-error" class="error" for="cabins"></label>
 										</div>
-										<label class="col-md-2">Yacht Hour/Fixed:<span class="mandatory">*</span> </label>
+										<label class="col-md-2">Yacht Hour/Fixed: <span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<select name="yacht_hour_fixed" id="yacht_hour_fixed" class="form-control">
 												<option value="">--Select One--</option>
@@ -67,7 +67,7 @@
 										</div>
 									</div>
                                     <div class="form-group">
-										<label class="col-md-12"> Yacht details: </label>
+										<label class="col-md-12"> Yacht details: <span class="mandatory">*</span> </label>
 										<div class="col-md-12">
 											<textarea name="yacht_details" id="yacht_details" class="form-control"><?php echo $ljp_Data[0]['yacht_details']; ?></textarea>
 											<label id="yacht_details-error" class="error" for="yacht_details"></label>
@@ -104,23 +104,31 @@
                         },
 						package_name: {
 							required: true,	
-                            regex:/^[a-zA-Z0-9 %-]*$/,
-						},
-						fb:{
-							required: true,
+                            regex:/^[a-zA-Z0-9 %-]*$/,						
 						},
 						yacht_details: {
 							required: true,
 						},
-						insta: {
-							required: true,
-						},
 						price: {
 							required: true,
-							regex:/^\d+\.\d{0,2}$/,
+							regex: /^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/,
 						},
 						yacht_hour_fixed: {
-							required: true,
+							required:  true,
+						},
+						pak_status: {
+							required:  true,
+						},
+						no_pax: {
+							required:  true,
+							regex:/^[0-9]*$/,
+						},
+						yacht_size: {
+							required:  true,
+							regex:/^[0-9]+([,.][0-9]+)?$/,
+						},
+						cabins: {
+							required:  true,
 						},
 					},
 					messages: {
@@ -143,6 +151,20 @@
 						},
 						yacht_hour_fixed: {
 							required:  "Please Selet yacht hour or fixed ",
+						},
+						pak_status: {
+							required:  "Please Selet pak status ",
+						},
+						no_pax: {
+						    required:  "Please enter number of package",
+							regex:"only integer accepted"
+						},
+						yacht_size: {
+						    required:  "Please enter yacht  size",
+							regex:"only integer and decimal are  accepted"
+						},
+						cabins: {
+							required: "Please enter cabins ",
 						},
                       },
 					onfocusout: function(element) {

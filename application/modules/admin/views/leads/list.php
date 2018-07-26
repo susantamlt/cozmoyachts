@@ -27,10 +27,7 @@
                                       <th title="E-mail"> E-mail </th>
                                       <th title="Website Name"> Website Name </th>
                                       <th title="Packages Name"> Packages Name </th>
-                                      <th title="Date of trip">Date of Trip</th>
-                                      <th title="Date of trip">Time of Trip</th>
-                                      <th title="Date of trip">No of Pax</th>
-                                      <th title="Created Date"> Date </th>
+                                     <th title="Created Date"> Date </th>
                                       <th title="Action"> Action </th>
                                     </tr>
                                   </thead>
@@ -121,36 +118,9 @@
                   }
                 },
                 {
-                  "sName": "Gender",
+                  "sName": "Action",
                   "sClass": "text-center",
-                  "bSearchable": false,
-                  "bSortable": true,
-                  "fnRender": function (oObj) {
-                    return oObj;
-                  }
-                },
-                {
-                  "sName": "Country",
-                  "sClass": "text-center",
-                  "bSearchable": false,
-                  "bSortable": true,
-                  "fnRender": function (oObj) {
-                    return oObj;
-                  }
-                },
-                {
-                  "sName": "Country",
-                  "sClass": "text-center",
-                  "bSearchable": false,
-                  "bSortable": true,
-                  "fnRender": function (oObj) {
-                    return oObj;
-                  }
-                },
-                {
-                  "sName": "Country",
-                  "sClass": "text-center",
-                  "bSearchable": false,
+                  "bSearchable": true,
                   "bSortable": true,
                   "fnRender": function (oObj) {
                     return oObj;
@@ -177,7 +147,7 @@
               ],
               "iDisplayLength": 25,
               "aLengthMenu": [[10,25, 50, 100, 500, -1], [10,25, 50, 100, 500, "All"]],
-              'aaSorting': [[9, 'desc']]
+              'aaSorting':[[6,'desc']]
             });
           });
         </script>

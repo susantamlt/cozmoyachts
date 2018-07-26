@@ -26,8 +26,7 @@
                                       <th title="Phone"> Phone </th>
                                       <th title="Website Name"> Website Name </th>
                                       <th title="Country Name"> Country Name </th>
-                                      <th title="Last Login Date"> Last Login Date </th>
-                                      <th title="Created Date"> Date </th>
+                                       <th title="Created Date"> Date </th>
                                       <th title="Action"> Action </th>
             												</tr>
             											</thead>
@@ -127,15 +126,6 @@
                   }
                 },
                 {
-                  "sName": "Country",
-                  "sClass": "text-center",
-                  "bSearchable": false,
-                  "bSortable": true,
-                  "fnRender": function (oObj) {
-                    return oObj;
-                  }
-                },
-                {
                   "sName": "Action",
                   "sClass": "text-center",
                   "bSearchable": false,
@@ -156,7 +146,7 @@
               ],
               "iDisplayLength": 25,
               "aLengthMenu": [[25, 50, 100, 500, -1], [25, 50, 100, 500, "All"]],
-              'aaSorting': [[7, 'desc']]
+               'aaSorting':[[6,'desc']]
             });
           });
         </script>

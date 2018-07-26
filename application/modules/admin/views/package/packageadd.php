@@ -18,7 +18,7 @@
 										</div>
 										<label class="col-md-2"> Package Name:<span class="mandatory">*</span> </label>
 										<div class="col-md-4">
-											<input type="text" name="package_name" id="package_name" class="form-control" value="" placeholder="Package name" />
+											<input type="text" name="package_name" id="package_name" class="form-control" value="" placeholder="Package name" autocomplete="off"/>
 											<label id="package_name-error" class="error" for="package_name"></label>
 										</div>
 									</div>
@@ -124,7 +124,7 @@
                         },
 						price: {
 							required: true,
-							regex:/^\d+\.\d{0,2}$/,
+							regex:/^\d+(\.\d{1,2})?$/,
 						},
 						pak_status: {
 							required: true,

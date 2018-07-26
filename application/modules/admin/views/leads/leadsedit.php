@@ -12,12 +12,12 @@
 							<div class="body">
 								<?php echo form_open_multipart('admin/leads/leads_save', array('id' =>'leads_form','name'=>'leads_form','class'=>'form-horizontal','enctype'=>'multipart/form-data','method'=>'POST')); ?>
 									<div class="form-group">
-										<label class="col-md-2">Client Name: </label>
+										<label class="col-md-2">Client Name: <span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<input type="text" name="client_name" id="client_name" class="form-control" value="<?php echo $ljp_Data[0]['client_name']; ?>" placeholder="Client Name" />
 											<label id="client_name-error" class="error" for="client_name"></label>
 										</div>
-										<label class="col-md-2">Primary Phone: </label>
+										<label class="col-md-2">Primary Phone: <span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<input type="text" name="primary_phone" id="primary_phone" class="form-control" value="<?php echo $ljp_Data[0]['primary_phone']; ?>" placeholder="Primary Phone" />
 											<label id="primary_phone-error" class="error" for="primary_phone"></label>
@@ -26,34 +26,34 @@
 									<div class="form-group">
 										<label class="col-md-2"> Secondary Phone:</label>
 										<div class="col-md-4">
-											<input type="text" name="secondarys_phone" id="secondarys_phone" class="form-control" value="<?php echo $ljp_Data[0]['secondarys_phone']; ?>" placeholder="Phone One" />
+											<input type="text" name="secondarys_phone" id="secondarys_phone" class="form-control" value="<?php echo $ljp_Data[0]['secondarys_phone']; ?>" placeholder="Secondary Phone" />
 											<label id="secondarys_phone-error" class="error" for="secondarys_phone"></label>
 										</div>
-										<label class="col-md-2">  E-mail: </label>
+										<label class="col-md-2">  E-mail:<span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<input type="text" name="email" id="email" class="form-control" value="<?php echo $ljp_Data[0]['email']; ?>" placeholder="E-mail" />
 											<label id="email-error" class="error" for="email"></label>
 										</div>
 									</div>
-									<div class="form-group">
-										<label class="col-md-2"> Date of trip: </label>
+									<div class="form-group demo-masked-input">
+										<label class="col-md-2"> Date of trip: <span class="mandatory">*</span> </label>
 										<div class="col-md-4">
-											<input type="date" name="date_of_trip" id="date_of_trip" class="form-control" value="<?php echo $ljp_Data[0]['date_of_trip']; ?>" placeholder="Date of trip" />
+											<input type="text" name="date_of_trip" id="date_of_trip" class="form-control date" value="<?php echo date('m/d/Y', strtotime($ljp_Data[0]['date_of_trip']))?>" placeholder="Date of trip" />
 											<label id="date_of_trip-error" class="error" for="date_of_trip"></label>
 										</div>
-										<label class="col-md-2">  Time of trip: </label>
+										<label class="col-md-2">  Time of trip: <span class="mandatory">*</span> </label>
 										<div class="col-md-4">
-											<input type="time" name="time_of_trip" id="time_of_trip" class="form-control" value="<?php echo $ljp_Data[0]['time_of_trip']; ?>" placeholder="Time of trip" />
+											<input type="text" name="time_of_trip" id="time_of_trip" class="form-control time12" value="<?php echo $ljp_Data[0]['time_of_trip']; ?>" placeholder="Time of trip" />
 											<label id="time_of_trip-error" class="error" for="time_of_trip"></label>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-2">  Package: </label>
+										<label class="col-md-2">  Package:<span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 										<?php echo form_dropdown('pak_id',$ljp_package,$ljp_Data[0]['pak_id'],'class="form-control" id="pak_id"') ?>
 											<label id="pak_id-error" class="error" for="pak_id"></label>
 										</div>
-										<label class="col-md-2">No of pax :</label>
+										<label class="col-md-2">No of pax :<span class="mandatory">*</span></label>
 										<div class="col-md-4">
 											<input type="text" name="no_of_pax" id="no_of_pax" class="form-control" value="<?php echo $ljp_Data[0]['no_of_pax']; ?>" placeholder="No of pax" />
 											<label id="no_of_pax-error" class="error" for="no_of_pax"></label>
@@ -61,7 +61,7 @@
 										
 									</div>
 									<div class="form-group">
-										<label class="col-md-2"> Website: </label>
+										<label class="col-md-2"> Website:<span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<?php echo form_dropdown('web_id',$ljp_website,$ljp_Data[0]['web_id'],'class="form-control" id="web_id"') ?>
 											<label id="web_id-error" class="error" for="web_id"></label>
@@ -97,14 +97,12 @@
 							required: true,
 							regex:/^[a-zA-Z ]*$/,
 						},
-						
 						primary_phone: {
 							required: true,
 							number: true,
 							minlength: 7,
 							maxlength: 10,
 						},
-						
 						secondarys_phone: {
 							number: true,
 							minlength: 7,
@@ -115,7 +113,6 @@
 							email: true,
 							regex: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
 						},
-						
 						pak_id: {
 							required: true,
 						},
@@ -140,6 +137,11 @@
 						},
 						primary_phone: {
 							required: "Please enter a phone number.",
+							number: "Please enter a valid phone number.",
+							minlength: "Your phone must be at min 7 digits",
+							maxlength: "Your phone must be at max 10 digits"
+						},
+						secondarys_phone: {
 							number: "Please enter a valid phone number.",
 							minlength: "Your phone must be at min 7 digits",
 							maxlength: "Your phone must be at max 10 digits"
@@ -212,3 +214,12 @@
 				});
 			});
 		</script>
+		<!-- Input Mask Plugin Js -->
+        <script src="<?php echo config_item('assets_dir');?>plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+        <script type="text/javascript">
+            var $demoMaskedInput = $('.demo-masked-input');
+            //Date
+            $demoMaskedInput.find('.date').inputmask('mm/dd/yyyy', { placeholder: '__/__/____' });
+            //Time
+            $demoMaskedInput.find('.time12').inputmask('hh:mm t', { placeholder: '__:_ m', alias: 'time12', hourFormat: '12' });
+        </script>

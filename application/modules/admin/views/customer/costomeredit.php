@@ -11,12 +11,12 @@
 							<div class="body">
 								<?php echo form_open_multipart('admin/customers/customers_save', array('id' =>'costomers_form','name'=>'costomers_form','class'=>'form-horizontal','enctype'=>'multipart/form-data','method'=>'POST')); ?>
 									<div class="form-group">
-										<label class="col-md-2"> User Name </label>
+										<label class="col-md-2"> User Name<span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<input type="text" name="user_name" id="user_name" class="form-control" value="<?php echo $ljp_Data[0]['user_name']; ?>" placeholder="User name" />
 											<label id="user_name-error" class="error" for="user_name"></label>
 										</div>
-										<label class="col-md-2">E-mail </label>
+										<label class="col-md-2">E-mail <span class="mandatory">*</span></label>
 										<div class="col-md-4">
 											<input type="text" name="email" id="email" class="form-control" value="<?php echo $ljp_Data[0]['email']; ?>" placeholder="E-mail" />
 											<label id="email-error" class="error" for="email"></label>
@@ -24,7 +24,7 @@
 									</div>
 									
 									<div class="form-group">
-										<label class="col-md-2"> Primary Phone  </label>
+										<label class="col-md-2"> Primary Phone: <span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<input type="text" name="phone" id="phone" class="form-control" value="<?php echo $ljp_Data[0]['phone']; ?>" placeholder="Phone Number " />
 											<label id="phone-error" class="error" for="phone"></label>
@@ -36,21 +36,21 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-2"> Address  </label>
+										<label class="col-md-2"> Address:<span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<input type="text" name="address" id="address" class="form-control" value="<?php echo $ljp_Data[0]['address']; ?>" placeholder="Address" />
 											<label id="address-error" class="error" for="address"></label>
 										</div>
-										<label class="col-md-2"> Country code </label>
+										<label class="col-md-2"> Country code:<span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 										    <?php echo form_dropdown('country_code',$ljp_country,$ljp_Data[0]['country_code'],'class="form-control" id="country_code"') ?>
 											<label id="country_code-error" class="error" for="country_code"></label>
 										</div>
 									</div>
-									<div class="form-group" style="clear:both;">
-										<label class="col-md-2"> Birthday </label>
+									<div class="form-group demo-masked-input" style="clear:both;">
+										<label class="col-md-2"> Birthday:<span class="mandatory">*</span></label>
 										<div class="col-md-4">
-											<input type="text" name="birthdate" id="birthdate" class="form-control datepicker" value="<?php echo date('d/m/Y',strtotime($ljp_Data[0]['birthdate'])); ?>" placeholder="dd/mm/yyyy"  data-date-format="dd/mm/yyyy" />
+											<input type="text" name="birthdate" id="birthdate" class="form-control date" value="<?php echo date('d/m/Y',strtotime($ljp_Data[0]['birthdate'])); ?>" placeholder="dd/mm/yyyy"  data-date-format="dd/mm/yyyy" />
 											<label id="birthdate-error" class="error" for="birthdate"></label>
 										</div>
 										<label class="col-md-2"> Image </label>
@@ -60,7 +60,7 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-2"> User Type </label>
+										<label class="col-md-2"> User Type:<span class="mandatory">*</span> </label>
 										<div class="col-md-4">
 											<select name="type" id="type" class="form-control">
 												<option value="">--Select One--</option>
@@ -69,7 +69,7 @@
 												<option value="2" <?php echo $ljp_Data[0]['type'] == '2' ? 'selected' : '' ?>>User</option>
 											</select>
 										</div>
-										<label class="col-md-2"> Website </label>
+										<label class="col-md-2"> Website: </label>
 										<div class="col-md-4">
 											<?php echo form_dropdown('web_id',$ljp_website,$ljp_Data[0]['web_id'],'class="form-control" id="web_id"') ?>
 											<label id="web_id-error" class="error" for="web_id"></label>
@@ -126,20 +126,20 @@
 							email: true,
 							regex: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
 						},
-						password:{
-							required:true,
-							minlength: 6,
+						address: {
+							required: true,
 						},
-						confirmPassword:{
-							required:true,
-							minlength: 6,
-							equalTo : '[name="password"]',
+						birthdate: {
+							required: true,
 						},
-						web_id:{
-							required:true,
+						web_id: {
+							required: true,
 						},
 						image: {
-							extension: "jpeg|jpg|png|gif",
+							extension: "jpeg/jpg/png/gif",
+						},
+						country_code:{
+							required: true,
 						},
 					},
 					messages: {
@@ -170,11 +170,23 @@
 						confirmPassword:{
 							required: "Please enter confirmPassword.",
 						},
-						web_id:{
-							required: "Please select website.",
+						address: {
+							required: "Please enter a email address.",
+						},
+						birthdate: {
+							required: "Please enter birthday",
+						},
+						web_id: {
+							required: "Please select website",
 						},
 						image: {
-							extension: "Those file are allowed. Ex: jpeg,jpg,png,gif"
+							extension: "Those file are allowed. Ex: jpeg/jpg/png|gif"
+						},
+						type: {
+							required: "Please select user type",							
+						},
+						country_code:{
+							required: "Please select country code",
 						},
 					},
 					onfocusout: function(element) {
@@ -208,16 +220,16 @@
 							success: function(res) {
 								var resD = $.parseJSON(res);
 								if(resD.status=='1'){
-									var html = '<div class="alert alert-success fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>Success!</strong> '+resD.msg+'.</div>';
+									var html = '<div class="alert alert-success fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>Success!</strong> The value successfully update.</div>';
 									$('#massage').html(html);
-									$("html, body").animate({ scrollTop: 0 }, "fast");
+									$("html, body").animate({ scrollTop: 0 }, "slow");
 									window.setTimeout(function () {
 										location.href = "<?php echo site_url('admin/customers') ?>";
 									}, 5000);
 								} else { 
-									var html = '<div class="alert alert-warning fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>Warning!</strong> '+resD.msg+'.</div>';
+									var html = '<div class="alert alert-warning fade in alert-dismissible" style="margin-top:18px;"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>Warning!</strong> This value already exists in the list.</div>';
 									$('#massage').html(html);
-									$("html, body").animate({ scrollTop: 0 }, "fast");
+									$("html, body").animate({ scrollTop: 0 }, "slow");
 								}
 							}
 						});
@@ -229,9 +241,18 @@
 		<script type="text/javascript" src="<?php echo config_item('assets_dir');?>js/bootstrap-datepicker.js"></script>
 		<script type="text/javascript">
 			$(function () {
-				$('#birthdate').datepicker({
+				$('#birthdate1').datepicker({
 					format: 'dd/mm/yyyy',
 					autoclose:true,
 				});
 			});
 		</script>
+		 <!-- Input Mask Plugin Js -->
+        <script src="<?php echo config_item('assets_dir');?>plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+        <script type="text/javascript">
+            var $demoMaskedInput = $('.demo-masked-input');
+            //Date
+            $demoMaskedInput.find('.date').inputmask('mm/dd/yyyy', { placeholder: '__/__/____' });
+            //Time
+            $demoMaskedInput.find('.time12').inputmask('hh:mm t', { placeholder: '__:_ m', alias: 'time12', hourFormat: '12' });
+        </script>

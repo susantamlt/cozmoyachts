@@ -35,15 +35,15 @@
 											<label id="email-error" class="error" for="email"></label>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group demo-masked-input">
 										<label class="col-md-2">Date of trip:<span class="mandatory">*</span></label>
 										<div class="col-md-4">
-											<input type="date" name="date_of_trip" id="date_of_trip" class="form-control" value="" placeholder="Date of trip" autocomplete="off" />
+											<input type="text" name="date_of_trip" id="date_of_trip" class="form-control date" value="" placeholder="Date of trip" autocomplete="off" />
 											<label id="date_of_trip-error" class="error" for="date_of_trip"></label>
 										</div>
 										<label class="col-md-2">Time of trip:<span class="mandatory">*</span></label>
 										<div class="col-md-4">
-											<input type="time" name="time_of_trip" id="time_of_trip" class="form-control" value="" placeholder="Time of trip" autocomplete="off" />
+											<input type="text" name="time_of_trip" id="time_of_trip" class="form-control time12" value="" placeholder="Time of trip" autocomplete="off" />
 											<label id="time_of_trip-error" class="error" for="time_of_trip"></label>
 										</div>
 									</div>
@@ -53,7 +53,7 @@
 											<?php echo form_dropdown('pak_id',$ljp_package,'','class="form-control" id="pak_id"') ?>
 											<label id="pak_id-error" class="error" for="pak_id"></label>
 										</div>
-										<label class="col-md-2">No of pax:<span class="mandatory" autocomplete="off">*</span></label>
+										<label class="col-md-2">No of pax:<span class="mandatory">*</span></label>
 										<div class="col-md-4">
 											<input type="text" name="no_of_pax" id="no_of_pax" class="form-control" value="" placeholder="No of pax" autocomplete="off" />
 											<label id="no_of_pax-error" class="error" for="no_of_pax"></label>
@@ -101,6 +101,11 @@
 							minlength: 7,
 							maxlength: 10,
 						},
+						secondarys_phone: {
+							number: true,
+							minlength: 7,
+							maxlength: 10,
+						},
 						email: {
 							required: true,
 							email: true,
@@ -130,6 +135,11 @@
 						},
 						primary_phone: {
 							required: "Please enter a phone number.",
+							number: "Please enter a valid phone number.",
+							minlength: "Your phone must be at min 7 digits",
+							maxlength: "Your phone must be at max 10 digits"
+						},
+						secondarys_phone: {
 							number: "Please enter a valid phone number.",
 							minlength: "Your phone must be at min 7 digits",
 							maxlength: "Your phone must be at max 10 digits"
@@ -229,3 +239,12 @@
 				}
 			});
 		</script>
+		 <!-- Input Mask Plugin Js -->
+        <script src="<?php echo config_item('assets_dir');?>plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+        <script type="text/javascript">
+            var $demoMaskedInput = $('.demo-masked-input');
+            //Date
+            $demoMaskedInput.find('.date').inputmask('mm/dd/yyyy', { placeholder: '__/__/____' });
+            //Time
+            $demoMaskedInput.find('.time12').inputmask('hh:mm t', { placeholder: '__:_ m', alias: 'time12', hourFormat: '12' });
+        </script>
